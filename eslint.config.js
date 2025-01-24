@@ -13,10 +13,11 @@ export default antfu({
 }, {
   rules: {
     "no-console": ["warn"],
+    "unused-imports/no-unused-vars": ["warn"],
     "antfu/no-top-level-await": ["off"],
     "node/prefer-global/process": ["off"],
     "node/no-process-env": ["error"],
-    "perfectionist/sort-imports": ["error", {
+    "perfectionist/sort-imports": ["warn", {
       tsconfigRootDir: ".",
     }],
     "unicorn/filename-case": ["error", {
