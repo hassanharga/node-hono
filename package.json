@@ -1,0 +1,19 @@
+{
+  "name": "node-hone",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "@hono/node-server": "^1.13.7",
+    "hono": "^4.6.18"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^3.16.0",
+    "@types/node": "^20.11.17",
+    "eslint": "^9.18.0",
+    "eslint-plugin-format": "^1.0.1",
+    "tsx": "^4.7.1"
+  }
+}
