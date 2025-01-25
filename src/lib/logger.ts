@@ -1,5 +1,7 @@
 import { createLogger, format, transports } from "winston";
 
+import { config } from "@/config";
+
 const { combine, timestamp, colorize, json, prettyPrint, errors } = format;
 
 // const customFormat = printf(({ level, message, timestamp, service }) => {
@@ -7,8 +9,7 @@ const { combine, timestamp, colorize, json, prettyPrint, errors } = format;
 // });
 
 const logger = createLogger({
-  // TODO: Add a custom log level for the logger
-  level: "info",
+  level: config.LOG_LEVEL,
   defaultMeta: { service: "APP" },
   format: combine(
     errors({ stack: true }),

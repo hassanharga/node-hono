@@ -1,6 +1,7 @@
 import type { ErrorHandler } from "hono";
 import type { ContentfulStatusCode, StatusCode } from "hono/utils/http-status";
 
+import { config } from "@/config";
 import logger from "@/lib/logger";
 
 import { INTERNAL_SERVER_ERROR, OK } from "../constants/http-status-codes";
@@ -13,8 +14,7 @@ const onError: ErrorHandler = (err, c) => {
     ? (currentStatus as StatusCode)
     : INTERNAL_SERVER_ERROR;
 
-  // eslint-disable-next-line node/no-process-env
-  const env = c.env?.NODE_ENV || process.env?.NODE_ENV;
+  const env = c.env?.NODE_ENV || config?.NODE_ENV;
 
   logger.error(err);
 
