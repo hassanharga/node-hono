@@ -1,7 +1,7 @@
 import type { OpenAPIHono } from "@hono/zod-openapi";
 
 export interface AppBinding {
-//   Variables: {};
+  //   Variables: {};
 }
 
-export type OpenApiApp = OpenAPIHono;
+export type App = OpenAPIHono;
