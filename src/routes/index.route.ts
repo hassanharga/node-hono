@@ -1,26 +1,19 @@
-import { z } from 'zod';
-
+import { OK } from '@/constants/http-status-codes';
+import { jsonContent } from '@/helpers/open-api.helper';
+import { createZodMessageSchema } from '@/helpers/zod.helper';
 import { createAppRouter } from '@/lib/create-app';
 
 const router = createAppRouter().openapi(
   {
     method: 'get',
     path: '/',
+    tags: ['index'],
     responses: {
-      200: {
-        description: 'index api',
-        content: {
-          'application/json': {
-            schema: z.object({
-              message: z.string(),
-            }),
-          },
-        },
-      },
+      [OK]: jsonContent(createZodMessageSchema('index api message'), 'index api'),
     },
   },
   (c) => {
-    return c.json({ message: 'index page' });
+    return c.json({ message: c.var.requestId }, OK);
   },
 );
 

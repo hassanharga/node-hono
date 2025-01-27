@@ -8,6 +8,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   PORT: z.coerce.number().default(3000),
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']),
+  API_BASE_URL: z.string(),
 });
 
 // eslint-disable-next-line node/no-process-env

@@ -2,6 +2,8 @@ import { apiReference } from '@scalar/hono-api-reference';
 
 import type { App } from '@/types/types';
 
+import { config } from '@/config';
+
 import packageJSON from '../../package.json';
 
 export default function configureOpenApi(app: App) {
@@ -28,6 +30,7 @@ export default function configureOpenApi(app: App) {
       spec: {
         url: '/doc',
       },
+      servers: [{ url: config.API_BASE_URL }],
     }),
   );
 }
