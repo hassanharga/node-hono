@@ -1,9 +1,9 @@
-import { serve } from "@hono/node-server";
+import { serve } from '@hono/node-server';
 
-import logger from "@/lib/logger";
+import logger from '@/lib/logger';
 
-import app from "./app";
-import { config } from "./config";
+import app from './app';
+import { config } from './config';
 
 const port = config.PORT;
 

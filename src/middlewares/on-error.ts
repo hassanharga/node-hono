@@ -1,13 +1,13 @@
-import type { ErrorHandler } from "hono";
-import type { ContentfulStatusCode, StatusCode } from "hono/utils/http-status";
+import type { ErrorHandler } from 'hono';
+import type { ContentfulStatusCode, StatusCode } from 'hono/utils/http-status';
 
-import { config } from "@/config";
-import logger from "@/lib/logger";
+import { config } from '@/config';
+import logger from '@/lib/logger';
 
-import { INTERNAL_SERVER_ERROR, OK } from "../constants/http-status-codes";
+import { INTERNAL_SERVER_ERROR, OK } from '../constants/http-status-codes';
 
 const onError: ErrorHandler = (err, c) => {
-  const currentStatus = "status" in err
+  const currentStatus = 'status' in err
     ? err.status
     : c.newResponse(null).status;
   const statusCode = currentStatus !== OK
@@ -21,7 +21,7 @@ const onError: ErrorHandler = (err, c) => {
   return c.json(
     {
       message: err.message,
-      stack: env === "production"
+      stack: env === 'production'
         ? undefined
         : err.stack,
     },

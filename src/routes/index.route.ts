@@ -1,16 +1,16 @@
-import { z } from "zod";
+import { z } from 'zod';
 
-import { createAppRouter } from "@/lib/create-app";
+import { createAppRouter } from '@/lib/create-app';
 
 const router = createAppRouter().openapi(
   {
-    method: "get",
-    path: "/",
+    method: 'get',
+    path: '/',
     responses: {
       200: {
-        description: "index api",
+        description: 'index api',
         content: {
-          "application/json": {
+          'application/json': {
             schema: z.object({
               message: z.string(),
             }),
@@ -20,8 +20,8 @@ const router = createAppRouter().openapi(
     },
   },
   (c) => {
-    return c.json({ message: "index page" });
-  }
+    return c.json({ message: 'index page' });
+  },
 );
 
 export default router;

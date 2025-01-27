@@ -1,6 +1,6 @@
-import { createLogger, format, transports } from "winston";
+import { createLogger, format, transports } from 'winston';
 
-import { config } from "@/config";
+import { config } from '@/config';
 
 const { combine, timestamp, colorize, json, prettyPrint, errors } = format;
 
@@ -10,7 +10,7 @@ const { combine, timestamp, colorize, json, prettyPrint, errors } = format;
 
 const logger = createLogger({
   level: config.LOG_LEVEL,
-  defaultMeta: { service: "APP" },
+  defaultMeta: { service: 'APP' },
   format: combine(
     errors({ stack: true }),
     timestamp(),
@@ -25,10 +25,10 @@ const logger = createLogger({
     // new transports.File({ filename: "combined.log" }),
   ],
   exceptionHandlers: [
-    new transports.File({ filename: "exceptions.log" }),
+    new transports.File({ filename: 'exceptions.log' }),
   ],
   rejectionHandlers: [
-    new transports.File({ filename: "rejections.log" }),
+    new transports.File({ filename: 'rejections.log' }),
   ],
 });
 
