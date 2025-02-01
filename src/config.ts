@@ -9,6 +9,18 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(3000),
   LOG_LEVEL: z.enum(['debug', 'info', 'warn', 'error']),
   API_BASE_URL: z.string(),
+  DATABASE_URL: z.string().url(),
+  DATABASE_AUTH_TOKEN: z.string().optional(),
+}).superRefine((data, ctx) => {
+  if (data.NODE_ENV === 'production' && !data.DATABASE_AUTH_TOKEN) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.invalid_type,
+      expected: 'string',
+      received: 'undefined',
+      path: ['DATABASE_AUTH_TOKEN'],
+      message: 'Must be set when NODE_ENV is \'production\'',
+    });
+  }
 });
 
 // eslint-disable-next-line node/no-process-env
