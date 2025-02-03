@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "3fb10731-df95-46fd-8479-8a07ff2c919b",
+  "id": "e80f2128-57f5-4204-a80c-b7fa167db921",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "tasks": {
@@ -34,14 +34,16 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "'\"2025-02-03T11:02:23.521Z\"'"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "integer",
           "primaryKey": false,
           "notNull": false,
-          "autoincrement": false
+          "autoincrement": false,
+          "default": "'\"2025-02-03T11:02:23.521Z\"'"
         }
       },
       "indexes": {},

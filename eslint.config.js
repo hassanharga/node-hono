@@ -13,6 +13,7 @@ export default antfu({
 }, {
   rules: {
     'no-console': ['warn'],
+    'perfectionist/sort-named-imports': ['warn'],
     'unused-imports/no-unused-vars': ['warn'],
     'antfu/no-top-level-await': ['off'],
     'node/prefer-global/process': ['off'],
