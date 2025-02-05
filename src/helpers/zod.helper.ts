@@ -22,7 +22,7 @@ export function createErrorSchema<T extends ZodSchema>(schema: T) {
     errors: z
       .object({ ...schema.shape })
       .openapi({
-        example: error.flatten().fieldErrors,
+        example: error?.flatten()?.fieldErrors,
       }),
   });
 }

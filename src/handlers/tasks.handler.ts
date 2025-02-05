@@ -1,4 +1,6 @@
-import type { CreateRoute, GetOneRoute, ListRoute } from '@/routes/tasks/tasks.route';
+import { eq } from 'drizzle-orm';
+
+import type { CreateRoute, GetOneRoute, ListRoute, UpdateRoute } from '@/routes/tasks/tasks.route';
 import type { AppRouteHandler } from '@/types/types';
 
 import { NOT_FOUND, OK } from '@/constants/http-status-codes';
@@ -39,4 +41,24 @@ const getOne: AppRouteHandler<GetOneRoute> = async (c) => {
   return c.json(task, OK);
 };
 
-export { create, getOne, list };
+// update task handler
+const update: AppRouteHandler<UpdateRoute> = async (c) => {
+  logger.debug('PATCH Update task in DB', { requestId: c.var.requestId });
+
+  const { id } = c.req.valid('param');
+  const data = c.req.valid('json');
+
+  const [updatedTask] = await db
+    .update(tasks)
+    .set(data)
+    .where(eq(tasks.id, id))
+    .returning();
+
+  if (!updatedTask) {
+    return c.json({ message: 'not found' }, NOT_FOUND);
+  }
+
+  return c.json(updatedTask, OK);
+};
+
+export { create, getOne, list, update };
