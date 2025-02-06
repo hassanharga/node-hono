@@ -1,9 +1,9 @@
 import { eq } from 'drizzle-orm';
 
-import type { CreateRoute, GetOneRoute, ListRoute, UpdateRoute } from '@/routes/tasks/tasks.route';
+import type { CreateRoute, GetOneRoute, ListRoute, RemoveRoute, UpdateRoute } from '@/routes/tasks/tasks.route';
 import type { AppRouteHandler } from '@/types/types';
 
-import { NOT_FOUND, OK } from '@/constants/http-status-codes';
+import { NO_CONTENT, NOT_FOUND, OK } from '@/constants/http-status-codes';
 import db from '@/db';
 import { tasks } from '@/db/schema';
 import logger from '@/lib/logger';
@@ -61,4 +61,19 @@ const update: AppRouteHandler<UpdateRoute> = async (c) => {
   return c.json(updatedTask, OK);
 };
 
-export { create, getOne, list, update };
+// remove task handler
+const remove: AppRouteHandler<RemoveRoute> = async (c) => {
+  const { id } = c.req.valid('param');
+
+  logger.debug('DELETE task in DB', { requestId: c.var.requestId, taskId: id });
+
+  const result = await db.delete(tasks).where(eq(tasks.id, id));
+
+  if (result.rowsAffected === 0) {
+    return c.json({ message: 'not found' }, NOT_FOUND);
+  }
+
+  return c.body(null, NO_CONTENT);
+};
+
+export { create, getOne, list, remove, update };

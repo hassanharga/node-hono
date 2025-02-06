@@ -15,6 +15,8 @@ export function createZodMessageSchema(message: string) {
 export function createErrorSchema<T extends ZodSchema>(schema: T) {
   const { error } = schema.safeParse(schema._def.typeName === z.ZodFirstPartyTypeKind.ZodArray ? [] : {});
 
+  // logger.error('error[createErrorSchema]', error?.flatten()?.fieldErrors);
+
   return z.object({
     success: z.boolean().openapi({
       example: false,

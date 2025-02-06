@@ -1,7 +1,7 @@
 import { createRoute } from '@hono/zod-openapi';
 import { z } from 'zod';
 
-import { NOT_FOUND, OK, UNPROCESSABLE_ENTITY } from '@/constants/http-status-codes';
+import { NO_CONTENT, NOT_FOUND, OK, UNPROCESSABLE_ENTITY } from '@/constants/http-status-codes';
 import { insertTasksSchema, patchTasksSchema, selectTasksSchema } from '@/db/schema';
 import { jsonContent, jsonContentOneOf, jsonContentRequired } from '@/helpers/open-api.helper';
 import { createErrorSchema, createZodMessageSchema, idParamsSchema } from '@/helpers/zod.helper';
@@ -84,15 +84,38 @@ const update = createRoute({
       'Task not found',
     ),
     [UNPROCESSABLE_ENTITY]: jsonContentOneOf(
-      [createErrorSchema(insertTasksSchema), createErrorSchema(idParamsSchema)],
+      [createErrorSchema(idParamsSchema), createErrorSchema(insertTasksSchema)],
       'Invalid task',
     ),
   },
 });
 
-export { create, getOne, list, update };
+const remove = createRoute({
+  path: '/tasks/{id}',
+  method: 'delete',
+  tags,
+  request: {
+    params: idParamsSchema,
+  },
+  responses: {
+    [NO_CONTENT]: {
+      description: 'Task deleted',
+    },
+    [NOT_FOUND]: jsonContent(
+      createZodMessageSchema('task not found'),
+      'Task not found',
+    ),
+    [UNPROCESSABLE_ENTITY]: jsonContent(
+      createErrorSchema(idParamsSchema),
+      'Invalid id',
+    ),
+  },
+});
+
+export { create, getOne, list, remove, update };
 
 export type ListRoute = typeof list;
 export type CreateRoute = typeof create;
 export type GetOneRoute = typeof getOne;
 export type UpdateRoute = typeof update;
+export type RemoveRoute = typeof remove;
