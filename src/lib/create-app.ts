@@ -52,3 +52,10 @@ export default function createApp(): App {
 
   return app;
 }
+
+export function createTestApp(router: App) {
+  const testApp = createApp();
+  testApp.route('/', router);
+
+  return testApp;
+}

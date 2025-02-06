@@ -1,8 +1,16 @@
+/* eslint-disable node/no-process-env */
 import dotenv from 'dotenv';
 import { expand } from 'dotenv-expand';
+import path from 'node:path';
 import { z } from 'zod';
 
-expand(dotenv.config());
+console.log('NODE_ENV:', process.env.NODE_ENV);
+expand(dotenv.config({
+  path: path.resolve(
+    process.cwd(),
+    process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
+  ),
+}));
 
 const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
@@ -23,7 +31,6 @@ const envSchema = z.object({
   }
 });
 
-// eslint-disable-next-line node/no-process-env
 const env = envSchema.safeParse(process.env);
 
 if (!env.success) {

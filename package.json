@@ -4,7 +4,8 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "test": "cross-env NODE_ENV=test vitest"
   },
   "dependencies": {
     "@asteasolutions/zod-to-openapi": "^7.3.0",
@@ -23,9 +24,11 @@
   "devDependencies": {
     "@antfu/eslint-config": "^3.16.0",
     "@types/node": "^20.11.17",
+    "cross-env": "^7.0.3",
     "drizzle-kit": "^0.30.4",
     "eslint": "^9.18.0",
     "eslint-plugin-format": "^1.0.1",
-    "tsx": "^4.19.2"
+    "tsx": "^4.19.2",
+    "vitest": "^3.0.5"
   }
 }
