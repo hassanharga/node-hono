@@ -18,6 +18,7 @@ export function createAppRouter() {
     strict: false,
     defaultHook: (result, c) => {
       if (!result.success) {
+        logger.error('validation error', { errors: result.error.flatten().fieldErrors, requestId: c.var.requestId, url: c.req.path });
         return c.json(
           {
             success: result.success,
